@@ -14,13 +14,15 @@ import kotlinx.android.synthetic.main.fragment_news_list.*
 
 import pl.com.juchnowicz.weeianews.R
 import pl.com.juchnowicz.weeianews.adapters.NewsAdapter
+import pl.com.juchnowicz.weeianews.models.APIResponse
 import pl.com.juchnowicz.weeianews.services.APIService
 
 
-class NewsListFragment : Fragment() {
+class NewsListFragment : Fragment(), NewsSelectedListener {
 
     var disposable: Disposable? = null
     var newsAdapter: NewsAdapter? = null
+    var delegate: Callbacks? = null
 
     val apiService by lazy {
         APIService.create()
@@ -45,7 +47,7 @@ class NewsListFragment : Fragment() {
     }
 
     fun initializeNewsList(){
-        newsAdapter = NewsAdapter()
+        newsAdapter = NewsAdapter(this)
         news_recycler_view?.setHasFixedSize(true)
         news_recycler_view?.layoutManager = LinearLayoutManager(this.context)
         news_recycler_view?.adapter = newsAdapter
@@ -56,4 +58,7 @@ class NewsListFragment : Fragment() {
         disposable?.dispose()
     }
 
+    override fun newsSelected(news: APIResponse.News) {
+        delegate?.showNews(news)
+    }
 }

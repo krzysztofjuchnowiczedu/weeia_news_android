@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.news_card.view.*
 import pl.com.juchnowicz.weeianews.R
+import pl.com.juchnowicz.weeianews.fragments.NewsSelectedListener
 import pl.com.juchnowicz.weeianews.models.APIResponse
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
+class NewsAdapter(val listener: NewsSelectedListener) : RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
 
     private var newsList: ArrayList<APIResponse.News> = ArrayList()
 
@@ -18,6 +19,9 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ViewHolder>(){
         val news = newsList[position]
         holder.title.text = news.title
         holder.content.text = news.content
+        holder.itemView.setOnClickListener {
+            listener.newsSelected(news)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
