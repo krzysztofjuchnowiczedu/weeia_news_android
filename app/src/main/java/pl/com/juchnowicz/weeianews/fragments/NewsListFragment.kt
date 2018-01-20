@@ -30,7 +30,7 @@ class NewsListFragment : Fragment(), NewsSelectedListener, AdapterView.OnItemSel
     val apiService by lazy {
         APIService.create()
     }
-
+    var types = arrayOf("info", "reminder", "system");
     var filterItems = arrayOf("All", "Info", "Reminder", "System")
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -62,7 +62,7 @@ class NewsListFragment : Fragment(), NewsSelectedListener, AdapterView.OnItemSel
     }
 
     fun initializeNewsList(){
-        newsAdapter = NewsAdapter(this)
+        newsAdapter = NewsAdapter(this,activity)
         news_recycler_view?.setHasFixedSize(true)
         news_recycler_view?.layoutManager = LinearLayoutManager(this.context)
         news_recycler_view?.adapter = newsAdapter
@@ -84,7 +84,7 @@ class NewsListFragment : Fragment(), NewsSelectedListener, AdapterView.OnItemSel
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when(p2){
             0 -> {newsAdapter?.updateEvents(newsList)}
-            in 1..3 -> {newsAdapter?.updateEvents(newsList.filter { news -> news.type == p2 })}
+            in 1..3 -> {newsAdapter?.updateEvents(newsList.filter { news -> news.type == types.get(p2) })}
         }
     }
 }

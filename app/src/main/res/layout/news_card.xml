@@ -38,6 +38,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/news_card_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+
             <TextView
                 android:id="@+id/news_card_content"
                 android:layout_width="match_parent"
