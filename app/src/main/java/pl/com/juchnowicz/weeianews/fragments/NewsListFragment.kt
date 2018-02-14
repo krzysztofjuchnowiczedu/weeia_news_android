@@ -84,7 +84,7 @@ class NewsListFragment : Fragment(), NewsSelectedListener, AdapterView.OnItemSel
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when(p2){
             0 -> {newsAdapter?.updateEvents(newsList)}
-            in 1..3 -> {newsAdapter?.updateEvents(newsList.filter { news -> news.type == types.get(p2) })}
+            in 1..3 -> {newsAdapter?.updateEvents(newsList.filter { news -> news.type == types.get(p2 -1) })}
         }
     }
 }
